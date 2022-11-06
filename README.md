@@ -36,7 +36,7 @@
 - belongs_to :record of purchase 
 
 
-## Product
+## Products
 
 | Column        | Type       | Options                        |
 |-------------- |------------|--------------------------------|
@@ -66,6 +66,7 @@
 
 - belongs_to : destination
 - belongs_to : Product information
+- belongs_to : users
 
 
 
@@ -73,5 +74,5 @@
 <!-- 購入よりも先にまず出品を考える。一人の人がたくさん出せる -->
 <!-- 購入記録でその他が記されるため、行き先の住所のみが必要 -->
 <!-- | null: false, foreign_key: true | -->
-<!--　どのユーザーがどの商品を買ったか -->
+<!--どのユーザーがどの商品を買ったか -->
 <!-- 他のテーブルから取得したいものはカラム情報ではなくカタマリ全て！それが外部キー&リファレンス -->
