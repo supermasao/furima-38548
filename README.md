@@ -1,24 +1,77 @@
-# README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users table
 
-Things you may want to cover:
+| Column             | Type                | Options                   |
+|--------------------|---------------------|---------------------------|
+| email              | string              | null: false, unique: true |
+| encrypted_password | string              | null: false               |
+| nickname           | string              | null: false               |
+| first_name         | string              | null: false               |
+| last_name          | string              | null: false               |
+| first_name(kana)   | string              | null: false               |
+| last_name(kana)    | string              | null: false               |
+| birth_day          | date                | null: false               |
 
-* Ruby version
 
-* System dependencies
+### Association
 
-* Configuration
+- has_many :product
+- has_many :record of purchase 
 
-* Database creation
 
-* Database initialization
+## destination table
 
-* How to run the test suite
+| Column                              | Type       | Options                        |
+|-------------------------------------|------------|--------------------------------|
+| post_code                           | string     | null:false                     |
+| prefecture                          | string     | null:false                     |
+| city                                | string     | null:false                     |
+| address                             | text       | null:false                     |
+| building_name                       | text       | null:false                     |
+| phone_number                        | string     | null:false                     |
 
-* Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
+### Association
+- belongs_to :record of purchase 
 
-* ...
+
+## Product
+
+| Column        | Type       | Options                        |
+|-------------- |------------|--------------------------------|
+| product_name  | string     | null: false                    |
+| price         | string     | null: false                    |
+| description   | text       | null: false                    |
+| category      | string     | null: false                    |
+| state         | string     | null: false                    |
+| payer         | string     | null: false                    |
+| destination   | string     | null: false                    |
+| day_to_ship   | string     | null: false                    |
+
+### Association
+
+- belongs_to :user
+- belongs_to :record of purchase 
+
+
+## record of purchase 
+
+| Column             | Type                | Options                        |
+|--------------------|---------------------|------------------------------  |
+| user               | references          | null: false, foreign_key: true |
+| product            | references          | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to : destination
+- belongs_to : Product information
+
+
+
+<!-- year,month,dayで分けるとデータがバラバラに管理されて不便 -->
+<!-- 購入よりも先にまず出品を考える。一人の人がたくさん出せる -->
+<!-- 購入記録でその他が記されるため、行き先の住所のみが必要 -->
+<!-- | null: false, foreign_key: true | -->
+<!--　どのユーザーがどの商品を買ったか -->
+<!-- 他のテーブルから取得したいものはカラム情報ではなくカタマリ全て！それが外部キー&リファレンス -->
