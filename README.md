@@ -16,8 +16,8 @@
 
 ### Association
 
-- has_many :products
-- has_many :purchases 
+- has_many :items
+- has_many :orders
 
 
 ## destinations
@@ -25,50 +25,50 @@
 | Column                              | Type       | Options                        |
 |-------------------------------------|------------|--------------------------------|
 | post_code                           | string     | null:false                     |
-| prefecture                          | string     | null:false                     |
+| prefecture_id                       | integer    | null:false                     |
 | city                                | string     | null:false                     |
 | address                             | string     | null:false                     |
-| building_name                       | text       |                                |
+| building_name                       | string     |                                |
 | phone_number                        | string     | null:false                     |
-| purchase                            | references | foreign_key: true              | 
+| order                               | references | foreign_key: true              | 
 
 
 ### Association
-- belongs_to : purchase 
+- belongs_to : orders
 
 
-## Products
+## items
 
-| Column        | Type       | Options                        |
-|-------------- |------------|--------------------------------|
-| product_name  | string     | null: false                    |
-| price         | integer    | null: false                    |
-| description   | text       | null: false                    |
-| category      | string     | null: false                    |
-| state         | string     | null: false                    |
-| payer         | string     | null: false                    |
-| destination   | string     | null: false                    |
-| day_to_ship   | string     | null: false                    |
-| user          | references | foreign_key: true              |
+| Column         | Type       | Options                        |
+|--------------  |------------|--------------------------------|
+| product_name   | string     | null: false                    |
+| price          | integer    | null: false                    |
+| description    | text       | null: false                    |
+| category_id    | integer    | null: false                    |
+| state_id       | integer    | null: false                    |
+| payer_id       | integer    | null: false                    |
+| destination_id | integer    | null: false                    |
+| day_to_ship_id | integer    | null: false                    |
+| user           | references | foreign_key: true              |
 
 ### Association
 
 - belongs_to :user
-- has_one :purchase
+- has_one : order
 
 
-## purchases 
+## orders 
 
 | Column             | Type                | Options                        |
 |--------------------|---------------------|------------------------------  |
 | user               | references          | null: false, foreign_key: true |
-| product            | references          | null: false, foreign_key: true |
+| item               | references          | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to : destination
-- belongs_to : Product
-- belongs_to : users
+- has_one : destination
+- belongs_to : item
+- belongs_to : user
 
 
 
@@ -83,3 +83,4 @@
 <!-- productsにuser突っ込む -->
 <!-- itemテーブルってなに？ -->
 <!--アクティブハッシュの謎 -->
+<!-- 購入履歴をorderにしているかな？商品はitem -->
