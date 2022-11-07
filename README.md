@@ -34,7 +34,7 @@
 
 
 ### Association
-- belongs_to : orders
+- belongs_to : order
 
 
 ## items
@@ -47,7 +47,7 @@
 | category_id    | integer    | null: false                    |
 | state_id       | integer    | null: false                    |
 | payer_id       | integer    | null: false                    |
-| destination_id | integer    | null: false                    |
+| prefecture_id  | integer    | null: false                    |
 | day_to_ship_id | integer    | null: false                    |
 | user           | references | foreign_key: true              |
 
