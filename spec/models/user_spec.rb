@@ -5,8 +5,19 @@ RSpec.describe User, type: :model do
     @user = FactoryBot.build(:user)
   end
 
+ 
   describe "ユーザー新規登録" do
-    it "nicknameが空だと登録できない" do
+
+    context 'ユーザ登録ができる時' do
+    
+      it "ユーザーが登録できる時" do 
+      @user.valid?
+    end
+
+
+    context 'ユーザ登録ができない時' do
+    
+      it "nicknameが空だと登録できない" do
       @user.nickname = '' 
       @user.valid?
       expect(@user.errors.full_messages).to include("Nickname can't be blank")
@@ -17,6 +28,7 @@ RSpec.describe User, type: :model do
       @user.valid?
       expect(@user.errors.full_messages).to include("Email can't be blank")
     end
+    
 
     it "重複したアドレスは登録できない" do
       @user.save
@@ -123,9 +135,9 @@ RSpec.describe User, type: :model do
       @user.valid?
       expect(@user.errors.full_messages).to include("Birth day can't be blank")
     end
-
-
   end
+end
+end
 end
 
 # user = User.new(nickname: "de", email: "ggg@gmail.com", password: "ggg111", password_confirmation: "ggg111",first_name:"だ",last_name:"だ",first_name_kana:"ダ",last_name_kana:"ダ",birth_day:"1930-01-01")
