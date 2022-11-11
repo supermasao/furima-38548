@@ -9,7 +9,7 @@ class Item < ApplicationRecord
   belongs_to :daytoship
   belongs_to :user
 
-  # validates :title, :text, presence: true
+  
   validates :image, presence: true
   validates :product_name,presence: true
   validates :description,presence: true
@@ -20,4 +20,3 @@ class Item < ApplicationRecord
   validates :day_to_ship_id, numericality: { other_than: 1 } 
   validates :price,presence: true,numericality: {only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999}
 end
-# エラー実験のため手動で名前を変更する必要があるか

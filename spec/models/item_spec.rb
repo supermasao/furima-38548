@@ -16,7 +16,7 @@ RSpec.describe Item, type: :model do
     # ここから異常パターン
     context '商品が出品できない時' do
       it "product_name が空だと出品できない" do
-        @item.product_name = '' 
+        @item.product_name = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Product name can't be blank")
       end
@@ -27,39 +27,39 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Description can't be blank")
       end
 
-      it "category_idが空だと出品できない" do
-        @item.category_id = '' 
+      it "category_idが「--」だと出品できない" do
+        @item.category_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Category is not a number")
+        expect(@item.errors.full_messages).to include("Category must be other than 1")
       end
 
-      it "state_idが空だと出品できない" do
-        @item.state_id = '' 
+      it "state_idが「--」だと出品できない" do
+        @item.state_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("State is not a number")
+        expect(@item.errors.full_messages).to include("State must be other than 1")
       end
 
-      it "payer_idが空だと出品できない" do
-        @item.payer_id = '' 
+      it "payer_idが「--」だと出品できない" do
+        @item.payer_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Payer is not a number")
+        expect(@item.errors.full_messages).to include("Payer must be other than 1")
       end
 
-      it "prefecture_idが空だと出品できない" do
-        @item.prefecture_id  = '' 
+      it "prefecture_idが「--」だと出品できない" do
+        @item.prefecture_id  = 1 
         @item.valid?
-        expect(@item.errors.full_messages).to include("Prefecture is not a number")
+        expect(@item.errors.full_messages).to include("Prefecture must be other than 1")
       end
 
-      it "day_to_ship_id が空だと出品できない" do
-        @item.day_to_ship_id = '' 
+      it "day_to_ship_id が「--」だと出品できない" do
+        @item.day_to_ship_id = 1 
         @item.valid?
       
-        expect(@item.errors.full_messages).to include("Day to ship is not a number")
+        expect(@item.errors.full_messages).to include("Day to ship must be other than 1")
       end
 
       it "priceが空だと出品できない" do
-        @item.price = '' 
+        @item.price = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Price can't be blank")
       end
@@ -80,6 +80,12 @@ RSpec.describe Item, type: :model do
         @item.price = '３３３３'
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is not a number")
+      end
+
+      it 'ユーザーが紐付いていなければ投稿できない' do
+        @item.user = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include('User must exist')
       end
 
     end
