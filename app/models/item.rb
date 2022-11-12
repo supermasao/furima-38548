@@ -6,7 +6,7 @@ class Item < ApplicationRecord
   belongs_to :state
   belongs_to :payer
   belongs_to :prefecture
-  belongs_to :daytoship
+  belongs_to :day_to_ship
   belongs_to :user
 
   validates :image, presence: true

@@ -135,6 +135,7 @@
        <% @items.each do |item| %>
        
        <li class='list'>
+        <%= link_to item_path(item.id) do %>
          <%= image_tag item.image,class: "item-img" if item.image.attached?  %>
           <div class='item-info'>
           <h3 class='item-name'>
@@ -147,7 +148,7 @@
               <span class='star-count'>0</span>
             </div>
           </div>
-      
+        <% end %>
        <% end %>
 
        <% else %>
