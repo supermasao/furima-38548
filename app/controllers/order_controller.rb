@@ -1,15 +1,23 @@
 class OrderController < ApplicationController
   def index
     @item = Item.find(params[:item_id])
+    @order_destination = OrderDestination.new
   end
   
   def create
+    @item = Item.find(params[:item_id])
     @order_destination = OrderDestination.new(order_params)
     if @order_destination.valid?
+      Payjp.api_key = ENV["PAYJP_SECRET_KEY"]  # 自身のPAY.JPテスト秘密鍵を記述しましょう
+      Payjp::Charge.create(
+        amount: @item.price,  # 商品の値段
+        card: order_params[:token],    # カードトークン
+        currency: 'jpy'                 # 通貨の種類（日本円）
+      )
       @order_destination.save
       redirect_to root_path
     else
-      render :root
+      render :'index'
     end
 
   end
@@ -17,7 +25,7 @@ class OrderController < ApplicationController
   private
 
   def order_params
-    params.require(:order_destination).permit(:post_code, :prefecture_id, :city, :adress, :building_name, :phone_number,:price).merge(user_id: current_user.id)
+    params.require(:order_destination).permit(:post_code, :prefecture_id, :city, :address, :building_name, :phone_number).merge(user_id: current_user.id, item_id: params[:item_id],token: params[:token])
   end
 
   # 上記のストロングパラメタをまとめたストロングパラメタを作り直す
