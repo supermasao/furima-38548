@@ -109,6 +109,4 @@ RSpec.describe OrderDestination, type: :model do
     end
   end  
 
-
-  # binding.pry
 end
