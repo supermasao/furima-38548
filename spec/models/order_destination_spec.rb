@@ -15,6 +15,12 @@ RSpec.describe OrderDestination, type: :model do
       it '全てが空でなく、指定の文字を使用していれば購入できる' do
         expect(@order_destination).to be_valid
       end
+
+      it '建物名がなくても購入できる' do
+        @order_destination.building_name = ''
+        expect(@order_destination).to be_valid
+      end
+      
     end
 
     # ここから異常パターン
@@ -61,18 +67,7 @@ RSpec.describe OrderDestination, type: :model do
         @order_destination.valid?
         expect(@order_destination.errors.full_messages).to include("Address can't be blank")
       end
-
-      it 'addressが登録できない' do
-        @order_destination.address  = ''
-        @order_destination.valid?
-        expect(@order_destination.errors.full_messages).to include("Address can't be blank")
-      end
-
-      it ' building_nameが登録できない' do
-        @order_destination.building_name = ''
-        @order_destination.valid?
-        expect(@order_destination.errors.full_messages).to include("Building name can't be blank")
-      end
+    
 
       it 'phone_numberが9桁以下では登録できない' do
         @order_destination.phone_number = 777
@@ -96,9 +91,22 @@ RSpec.describe OrderDestination, type: :model do
         @order_destination.valid?
         expect(@order_destination.errors.full_messages).to include("Phone number is invalid.")
       end
+     
+      it 'ユーザーが紐付いていなければ投稿できない' do
+        @order_destination.user_id = nil
+        @order_destination.valid?
+        expect(@order_destination.errors.full_messages).to include("User can't be blank")
+      end
+
+      it 'itemが紐付いていなければ投稿できない' do
+        @order_destination.item_id = nil
+        @order_destination.valid?
+        expect(@order_destination.errors.full_messages).to include("Item can't be blank")
+      end
+
+     
 
     end
-
   end  
 
 
