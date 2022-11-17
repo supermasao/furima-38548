@@ -8,6 +8,7 @@ class Item < ApplicationRecord
   belongs_to :prefecture
   belongs_to :day_to_ship
   belongs_to :user
+  has_one :order
 
   validates :image, presence: true
   validates :product_name, presence: true
