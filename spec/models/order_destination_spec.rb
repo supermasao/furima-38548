@@ -3,7 +3,10 @@ require 'rails_helper'
 RSpec.describe OrderDestination, type: :model do
 
   before do
-    @order_destination = FactoryBot.build(:order_destination)
+
+    @user = FactoryBot.create(:user)
+    @item = FactoryBot.create(:item)
+    @order_destination = FactoryBot.build(:order_destination, user_id: @user.id,item_id: @item.id)
   end
 
   describe '商品購入機能' do
@@ -59,24 +62,45 @@ RSpec.describe OrderDestination, type: :model do
         expect(@order_destination.errors.full_messages).to include("Address can't be blank")
       end
 
-      it 'phone_numberが登録できない' do
-        @order_destination.phone_number = ''
+      it 'addressが登録できない' do
+        @order_destination.address  = ''
         @order_destination.valid?
-        expect(@order_destination.errors.full_messages).to include("Phone number can't be blank")
+        expect(@order_destination.errors.full_messages).to include("Address can't be blank")
       end
 
-      it 'phone_numberが登録できない' do
+      it ' building_nameが登録できない' do
+        @order_destination.building_name = ''
+        @order_destination.valid?
+        expect(@order_destination.errors.full_messages).to include("Building name can't be blank")
+      end
+
+      it 'phone_numberが9桁以下では登録できない' do
         @order_destination.phone_number = 777
         @order_destination.valid?
         expect(@order_destination.errors.full_messages).to include("Phone number is invalid.")
       end
 
+      it 'phone_numberが12桁以上では登録できない' do
+        @order_destination.phone_number = 777777777777777
+        @order_destination.valid?
+        expect(@order_destination.errors.full_messages).to include("Phone number is invalid.")
+      end
 
+      it 'phone_numberが空では登録できない' do
+        @order_destination.phone_number = ''
+        @order_destination.valid?
+        expect(@order_destination.errors.full_messages).to include("Phone number can't be blank")
+      end
+      it 'phone_numberが半角数値以外では登録できない' do
+        @order_destination.phone_number = 'ああああああああああ'
+        @order_destination.valid?
+        expect(@order_destination.errors.full_messages).to include("Phone number is invalid.")
+      end
 
     end
 
   end  
 
 
-
+  # binding.pry
 end

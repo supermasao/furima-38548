@@ -11,6 +11,7 @@ class OrderDestination
     validates :address
     validates :phone_number, format: {with: /\A\d{10,11}\z/, message: "is invalid." }
     validates :token
+    validates :building_name
 
 end
 
