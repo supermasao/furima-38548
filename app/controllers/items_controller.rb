@@ -59,12 +59,14 @@ class ItemsController < ApplicationController
   end
 
   def move_to_index
-    if not user_signed_in?
-      redirect_to action: :index
-    elsif current_user.id != @item.user_id 
-      redirect_to action: :index
-    end
-  end
-
+    @item = Item.find(params[:id])
+  if @item.order.present?
+    redirect_to action: :index
+      elsif not user_signed_in?
+        redirect_to action: :index
+          elsif current_user.id != @item.user_id 
+            redirect_to action: :index
+          end
+      end
 
 end
