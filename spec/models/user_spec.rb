@@ -131,4 +131,4 @@ RSpec.describe User, type: :model do
   end
 end
 
-# user = User.new(nickname: "de", email: "ggg@gmail.com", password: "ggg111", password_confirmation: "ggg111",first_name:"だ",last_name:"だ",first_name_kana:"ダ",last_name_kana:"ダ",birth_day:"1930-01-01")
+

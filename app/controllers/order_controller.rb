@@ -36,7 +36,7 @@ class OrderController < ApplicationController
       redirect_to root_path
     elsif not user_signed_in?
       redirect_to root_path
-    elsif current_user.id != @item.user_id 
+    elsif current_user.id == @item.user_id 
       redirect_to root_path
     end
   end
