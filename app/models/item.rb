@@ -13,11 +13,11 @@ class Item < ApplicationRecord
   validates :image, presence: true
   validates :product_name, presence: true
   validates :description, presence: true
-  validates :category_id, numericality: { other_than: 1 }
-  validates :state_id, numericality: { other_than: 1 }
-  validates :payer_id, numericality: { other_than: 1 }
-  validates :prefecture_id, numericality: { other_than: 1 }
-  validates :day_to_ship_id, numericality: { other_than: 1 }
+  validates :category_id, numericality: { other_than: 1 , message: "を設定して下さい" }
+  validates :state_id, numericality: { other_than: 1 , message: "を設定して下さい" }
+  validates :payer_id, numericality: { other_than: 1 , message: "を設定して下さい" }
+  validates :prefecture_id, numericality: { other_than: 1 , message: "を設定して下さい" }
+  validates :day_to_ship_id, numericality: { other_than: 1 , message: "を設定して下さい" }
   validates :price, presence: true,
                     numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }
 end
